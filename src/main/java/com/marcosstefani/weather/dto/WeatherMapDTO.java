@@ -10,15 +10,15 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JacksonXmlRootElement(localName = "weather")
 public class WeatherMapDTO implements Serializable {
-	
+
 	private static final long serialVersionUID = 1253320017739887653L;
 
 	private String cod;
-	
+
 	private BigDecimal message;
-	
+
 	private Integer cnt;
-	
+
 	@JacksonXmlProperty(localName = "list")
 	@JacksonXmlElementWrapper(localName = "list", useWrapping = true)
 	private List<WeatherMapTimeDTO> list;
@@ -54,5 +54,5 @@ public class WeatherMapDTO implements Serializable {
 	public void setList(List<WeatherMapTimeDTO> list) {
 		this.list = list;
 	}
-	
+
 }

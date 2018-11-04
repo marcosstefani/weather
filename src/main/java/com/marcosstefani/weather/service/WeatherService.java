@@ -36,7 +36,7 @@ public class WeatherService {
 		try {
 			WeatherMapDTO weatherMap = this.restTemplate.getForObject(this.url(city), WeatherMapDTO.class);
 
-			for (LocalDate reference = LocalDate.now(); 
+			for (LocalDate reference = LocalDate.now();
 					reference.isBefore(LocalDate.now().plusDays(4));
 					reference = reference.plusDays(1)) {
 				final LocalDate ref = reference;

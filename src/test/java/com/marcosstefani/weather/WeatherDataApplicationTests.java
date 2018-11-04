@@ -19,30 +19,31 @@ import org.springframework.test.web.servlet.MockMvc;
 public class WeatherDataApplicationTests {
 
 	@Autowired
-    private MockMvc mvc;
-	
+	private MockMvc mvc;
+
 	@Test
 	public void weatherForecastAverageTest() throws Exception {
+
 		String city = "London";
-		
+
 		mvc.perform(get("/weather/nearby-forecast")
 				.contentType(MediaType.APPLICATION_JSON)
 				.param("city", city))
-		.andDo(print())
-		.andExpect(status().isOk());
-		
+				.andDo(print())
+				.andExpect(status().isOk());
+
 		city = "ABC";
-		
+
 		mvc.perform(get("/weather/nearby-forecast")
 				.contentType(MediaType.APPLICATION_JSON)
-				.param("city", city) )
-		.andDo(print())
-		.andExpect(status().isNotFound());
-		
+				.param("city", city))
+				.andDo(print())
+				.andExpect(status().isNotFound());
+
 		mvc.perform(get("/weather/nearby-forecast")
 				.contentType(MediaType.APPLICATION_JSON))
-		.andDo(print())
-		.andExpect(status().isBadRequest());
+				.andDo(print())
+				.andExpect(status().isBadRequest());
 	}
 
 }

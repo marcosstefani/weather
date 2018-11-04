@@ -9,36 +9,36 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class WeatherAverageDTO implements Serializable {
-	
-	private static final long serialVersionUID = 2507948334362352719L;
+
+	private static final long serialVersionUID = 5763148931413501367L;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate date;
-	
+
 	private BigDecimal daily;
-	
+
 	private BigDecimal nightly;
-	
+
 	private BigDecimal pressure;
-	
+
 	@JsonIgnore
 	private BigDecimal totalDaily;
-	
+
 	@JsonIgnore
 	private Integer quantDaily;
-	
+
 	@JsonIgnore
 	private BigDecimal totalNightly;
-	
+
 	@JsonIgnore
 	private Integer quantNightly;
-	
+
 	@JsonIgnore
 	private BigDecimal totalPressure;
-	
+
 	@JsonIgnore
 	private Integer quantPressure;
-	
+
 	public WeatherAverageDTO() {
 		this.totalDaily = BigDecimal.ZERO;
 		this.totalNightly = BigDecimal.ZERO;
@@ -67,8 +67,7 @@ public class WeatherAverageDTO implements Serializable {
 		if (map.isDaily()) {
 			this.totalDaily = this.totalDaily.add(map.getMain().getTemp());
 			this.quantDaily++;
-		}
-		else {
+		} else {
 			this.totalNightly = this.totalNightly.add(map.getMain().getTemp());
 			this.quantNightly++;
 		}
@@ -77,9 +76,15 @@ public class WeatherAverageDTO implements Serializable {
 	}
 
 	public void totalize() {
-		this.daily = (this.quantDaily > 0) ? this.totalDaily.divide(new BigDecimal(this.quantDaily.toString()), 2, RoundingMode.HALF_UP) : null;
-		this.nightly = (this.quantNightly > 0) ? this.totalNightly.divide(new BigDecimal(this.quantNightly.toString()), 2, RoundingMode.HALF_UP) : null;
-		this.pressure = (this.quantPressure > 0) ? this.totalPressure.divide(new BigDecimal(this.quantPressure.toString()), 2, RoundingMode.HALF_UP) : null;
+		this.daily = (this.quantDaily > 0)
+				? this.totalDaily.divide(new BigDecimal(this.quantDaily.toString()), 2, RoundingMode.HALF_UP)
+				: null;
+		this.nightly = (this.quantNightly > 0)
+				? this.totalNightly.divide(new BigDecimal(this.quantNightly.toString()), 2, RoundingMode.HALF_UP)
+				: null;
+		this.pressure = (this.quantPressure > 0)
+				? this.totalPressure.divide(new BigDecimal(this.quantPressure.toString()), 2, RoundingMode.HALF_UP)
+				: null;
 	}
 
 	public LocalDate getDate() {
@@ -113,7 +118,7 @@ public class WeatherAverageDTO implements Serializable {
 	public void setPressure(BigDecimal pressure) {
 		this.pressure = pressure;
 	}
-	
+
 	public BigDecimal getTotalDaily() {
 		return totalDaily;
 	}
@@ -161,5 +166,5 @@ public class WeatherAverageDTO implements Serializable {
 	public void setQuantPressure(Integer quantPressure) {
 		this.quantPressure = quantPressure;
 	}
-	
+
 }

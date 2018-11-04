@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-	
+
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
@@ -25,7 +25,7 @@ public class SwaggerConfig {
 				.build()
 				.apiInfo(metaData());
 	}
-	
+
 	private ApiInfo metaData() {
         return new ApiInfoBuilder()
                 .title("Weather REST API Documentation")
@@ -34,5 +34,5 @@ public class SwaggerConfig {
                 .contact(new Contact("Marcos Stefani Rosa", "http://www.marcosstefani.com", "marcos@marcosstefani.com"))
                 .build();
     }
-	
+
 }
