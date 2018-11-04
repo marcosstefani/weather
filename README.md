@@ -41,6 +41,7 @@ As you can see, the return is a list of objects with information from the next t
 - `date`: Reference date.
 - `daily`: Average of daily (06:00 - 18:00).
 - `nightly`: Average of nightly (18:00 - 06:00).
+- `pressure`: Average pressure on day.
 
 **_ps. temperatures in Celsius_**
 
