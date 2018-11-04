@@ -3,6 +3,7 @@ package com.marcosstefani.weather.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -13,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.alicp.jetcache.anno.Cached;
 import com.marcosstefani.weather.dto.WeatherAverageDTO;
 import com.marcosstefani.weather.dto.WeatherMapDTO;
 import com.marcosstefani.weather.dto.WeatherMapTimeDTO;
@@ -31,6 +33,7 @@ public class WeatherService {
 		this.restTemplate = restTemplateBuilder.build();
 	}
 
+	@Cached(expire = 10, timeUnit = TimeUnit.MINUTES)
 	public ResponseEntity<?> weatherForecastAverage(String city) {
 		List<WeatherAverageDTO> result = new ArrayList<WeatherAverageDTO>();
 		try {
