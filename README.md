@@ -3,12 +3,12 @@ REST API developed in Java with Spring Boot in order to provide information on w
 
 ## Summary
 
-This API was all developed in Java 8 and Spring Boot in order to demonstrate an application example where, from the name of a city look for climate information regarding that city based on the following metrics:
+This API was all developed in Java 8 and Spring Boot in order to demonstrate an application example where, from the name of a city look for weather's information regarding that city based on the following metrics:
 - Average of daily (06:00 - 18:00) and nightly (18:00 - 06:00) temperatures in Celsius for the next 3 days from today's date.
 - Average of pressure for the next 3 days from today's date.
 
 ## API documentation and Test of user
-To document the API, I used the maven dependency of Swagger 2, with this to access it, after the project is UP just consult the url: `http://{host}/swagger-ui.html`. In my case, I used it for local tests `http://localhost:8080/swagger-ui.html`. When you open Swagger, you will need to click on `weather-controller` and then on the GET method that will appear `/weather/nearby-forecast`. After that, it will open the EndPoint detail. Click `Try it out`, then enter the name of the city you want to see. To make the request, click `Execute`. Here is an example of the returned JSON:
+To document the API, I used the maven dependency of Swagger 2, with this to access it, after the project is UP just consult the url: `http://{host}/api/v1/swagger-ui.html`. In my case, I used it for local tests `http://localhost:8080/api/v1/swagger-ui.html`. When you open Swagger, you will need to click on `weather-controller` and then on the GET method that will appear `/weather/nearby-forecast`. After that, it will open the EndPoint detail. Click `Try it out`, then enter the name of the city you want to see. To make the request, click `Execute`. Here is an example of the returned JSON:
 ```
 [
   {
@@ -45,6 +45,13 @@ As you can see, the return is a list of objects with information from the next t
 
 **_ps. temperatures in Celsius_**
 
+This test can also be performed by a specific tool for REST calls, in my case I used Postman. The API test linke we developed is obtained by the code below:
+```
+curl -X GET \
+  'http://localhost:8080/api/v1/weather/nearby-forecast?city=London' \
+  -H 'Content-Type: application/json'
+```
+
 # Run and Test
 The maven version used was 3.5.3 and the commands for testing, compiling, installing, cleaning, package, etc. are those used by maven. Follow the documentation: https://maven.apache.org/guides/getting-started
 
@@ -59,6 +66,9 @@ The tool I used for development was Eclipse, however I preferred to use a custom
 
 ### Dependencies:
 I decided to use the latest version of Spring Boot (2.1.1.BUILD-SNAPSHOT) to take advantage of what it can best offer me and to use interesting annotation features, such as `@GetMapping` in the controller. I imported dependencies from Spring Boot libraries so our application can make EndPoints available, can run Swagger along with Swagger-ui, be able to render objects returned through the Jackson library, and be able to run tests.
+
+### Configuration
+I decided to change the base path of the application in the main class `WeatherDataApplication`. With this, we can use good practices in the definition of the URI. Another decision that I consider important was to inform which package Swagger should track in the `SwaggerConfig.java` file, this limits the package that will contain the controllers that will be displayed in Swagger.
 
 ### Controller:
 In the controller, I decided to use the @ApiOperation and @ApiParam annotations to document API information through Swagger. In it, I had a great challenge when defining the path of the URI, because this API is not a CRUD or a query of a variable amount of information and therefore I defined to return a list with the result in the JSON without paging as it will always bring a small amount of records.
